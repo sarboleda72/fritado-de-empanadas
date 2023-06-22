@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Frite empanadas</title>
 </head>
 <body>
     Tiempo (min) por un lado:
@@ -12,7 +12,7 @@
     <input type="number" class="tieOtrLad" required><br>
     Tiempo (min) de precalentamiento:
     <input type="number" class="tiePreCal" required><br>
-    Tiempo faltante en segundos:
+    Tiempo faltante:
     <input type="text" class="tieAct" readonly><br>
     <input type="button" value="Empezar" onclick="iniciar()" class="boton">
     <audio src="" class="sonido"></audio>
@@ -47,7 +47,7 @@
             
             const intervalID = setInterval(function() {
                 tiempoRestante -= 1000; // Restar 1 segundo (1000 milisegundos)
-                tieAct.value=(tiempoRestante.toString() + " ms");
+                tieAct.value=(((tiempoRestante/60000).toFixed(1)).toString() + "min");
 
                 if (tiempoRestante <= 0) {
                     clearInterval(intervalID);
