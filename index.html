@@ -12,6 +12,8 @@
     <input type="number" class="tieOtrLad" required><br>
     Tiempo (min) de precalentamiento:
     <input type="number" class="tiePreCal" required><br>
+    Tiempo faltante en segundos:
+    <input type="text" class="tieAct" readonly><br>
     <input type="button" value="Empezar" onclick="iniciar()" class="boton">
     <audio src="" class="sonido"></audio>
     <script>
@@ -21,14 +23,18 @@
             let tiePreCal=document.querySelector('.tiePreCal');
             let boton=document.querySelector('.boton');
             let sonido=document.querySelector('.sonido');
+            let tieAct=document.querySelector('.tieAct');
             tieLad.readOnly = true;
             tieOtrLad.readOnly = true;
             tiePreCal.readOnly = true;
             boton.disabled = true;
+            let tiempoRestante=parseInt(tieLad.value)*60000;
             setTimeout(function(){
+                tiempoRestante=parseInt(tieOtrLad.value)*60000;
                 sonido.src="sonidos/voltear.mp3";
                 sonido.play();
                 setTimeout(function(){
+                    tiempoRestante=parseInt(tiePreCal.value)*60000;
                     sonido.src="sonidos/sacar y dejar calentando el aceite.mp3";
                     sonido.play();
                     setTimeout(function(){
@@ -37,7 +43,16 @@
                         iniciar();
                         },parseInt(tiePreCal.value)*60000); 
                 },parseInt(tieOtrLad.value)*60000);
-            },parseInt(tieLad.value)*60000);                      
+            },parseInt(tieLad.value)*60000);
+            
+            const intervalID = setInterval(function() {
+                tiempoRestante -= 1000; // Restar 1 segundo (1000 milisegundos)
+                tieAct.value=(tiempoRestante.toString() + " ms");
+
+                if (tiempoRestante <= 0) {
+                    clearInterval(intervalID);
+                }
+            }, 1000);
         }        
     </script>
 </body>
