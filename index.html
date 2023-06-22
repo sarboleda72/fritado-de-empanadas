@@ -28,30 +28,26 @@
             tieOtrLad.readOnly = true;
             tiePreCal.readOnly = true;
             boton.disabled = true;
-            let tiempoRestante=parseInt(tieLad.value)*60000;
+            let tiempoRestante=parseFloat(tieLad.value)*60000;
             setTimeout(function(){
-                tiempoRestante=parseInt(tieOtrLad.value)*60000;
+                tiempoRestante=parseFloat(tieOtrLad.value)*60000;
                 sonido.src="sonidos/voltear.mp3";
                 sonido.play();
                 setTimeout(function(){
-                    tiempoRestante=parseInt(tiePreCal.value)*60000;
+                    tiempoRestante=parseFloat(tiePreCal.value)*60000;                    
                     sonido.src="sonidos/sacar y dejar calentando el aceite.mp3";
                     sonido.play();
                     setTimeout(function(){
                         sonido.src="sonidos/nueva tanda.mp3";
                         sonido.play();
                         iniciar();
-                        },parseInt(tiePreCal.value)*60000); 
-                },parseInt(tieOtrLad.value)*60000);
-            },parseInt(tieLad.value)*60000);
+                        },parseFloat(tiePreCal.value)*60000); 
+                },parseFloat(tieOtrLad.value)*60000);
+            },parseFloat(tieLad.value)*60000);
             
-            const intervalID = setInterval(function() {
-                tiempoRestante -= 1000; // Restar 1 segundo (1000 milisegundos)
-                tieAct.value=(((tiempoRestante/60000).toFixed(1)).toString() + "min");
-
-                if (tiempoRestante <= 0) {
-                    clearInterval(intervalID);
-                }
+            setInterval(function() {
+                tiempoRestante -= 1000;
+                tieAct.value=(((tiempoRestante/60000).toFixed(1)).toString() + "min");               
             }, 1000);
         }        
     </script>
