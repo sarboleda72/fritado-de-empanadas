@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Tiempo (min) por un lado:
+    <input type="number" class="tieLad" required><br>
+    Tiempo (min) por el otro lado:
+    <input type="number" class="tieOtrLad" required><br>
+    Tiempo (min) de precalentamiento:
+    <input type="number" class="tiePreCal" required><br>
+    <input type="button" value="Empezar" onclick="iniciar()" class="boton">
+    <audio src="" class="sonido"></audio>
+    <script>
+        function iniciar(){
+            let tieLad=document.querySelector('.tieLad');
+            let tieOtrLad=document.querySelector('.tieOtrLad');
+            let tiePreCal=document.querySelector('.tiePreCal');
+            let boton=document.querySelector('.boton');
+            let sonido=document.querySelector('.sonido');
+            tieLad.readOnly = true;
+            tieOtrLad.readOnly = true;
+            tiePreCal.readOnly = true;
+            boton.disabled = true;
+            setTimeout(function(){
+                sonido.src="sonidos/voltear.mp3";
+                sonido.play();
+                setTimeout(function(){
+                    sonido.src="sonidos/sacar y dejar calentando el aceite.mp3";
+                    sonido.play();
+                    setTimeout(function(){
+                        sonido.src="sonidos/nueva tanda.mp3";
+                        sonido.play();
+                        iniciar();
+                        },parseInt(tiePreCal.value)*60000); 
+                },parseInt(tieOtrLad.value)*60000);
+            },parseInt(tieLad.value)*60000);                      
+        }        
+    </script>
+</body>
+</html>
